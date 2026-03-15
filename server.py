@@ -114,7 +114,7 @@ class GameServer:
             "vx": BALL_SPEED * random.choice([-1, 1]),
             "vy": BALL_SPEED * random.choice([-1, 1])
         }
-
+   
     def accept_players(self):
         for pid in [0, 1]:
             print(f"Очікуємо гравця {pid}...")

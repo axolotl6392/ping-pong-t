@@ -41,7 +41,15 @@ def receive():
 font_win = font.Font(None, 72)
 font_main = font.Font(None, 36)
 # --- ЗОБРАЖЕННЯ ----
-
+win = display.set_mode((WIDTH, HEIGHT))
+img2 = image.load('222.png')
+img3 = image.load('333.png')
+img4 = image.load('444.png')
+img = image.load('img.png')
+BG_IMG = transform.scale(image.load('img.png'), (WIDTH, HEIGHT))
+BG_IMG2 = transform.scale(image.load('222.png'), (WIDTH, HEIGHT))
+BG_IMG3 = transform.scale(image.load('333.png'), (WIDTH, HEIGHT))
+BG_IMG4 = transform.scale(image.load('444.png'), (WIDTH, HEIGHT))
 # --- ЗВУКИ ---
 
 # --- ГРА ---
@@ -73,8 +81,10 @@ while True:
 
         if you_winner:
             text = "Ти переміг!"
+            screen.blit(BG_IMG, (0, 0))
         else:
             text = "Пощастить наступним разом!"
+            screen.blit(BG_IMG2, (0, 0))
 
         win_text = font_win.render(text, True, (255, 215, 0))
         text_rect = win_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
@@ -89,11 +99,13 @@ while True:
 
     if game_state:
         screen.fill((30, 30, 30))
+        screen.blit(BG_IMG4, (0, 0))
         draw.rect(screen, (0, 255, 0), (20, game_state['paddles']['0'], 20, 100))
         draw.rect(screen, (255, 0, 255), (WIDTH - 40, game_state['paddles']['1'], 20, 100))
         draw.circle(screen, (255, 255, 255), (game_state['ball']['x'], game_state['ball']['y']), 10)
         score_text = font_main.render(f"{game_state['scores'][0]} : {game_state['scores'][1]}", True, (255, 255, 255))
         screen.blit(score_text, (WIDTH // 2 -25, 20))
+        
 
         if game_state['sound_event']:
             if game_state['sound_event'] == 'wall_hit':
@@ -105,7 +117,8 @@ while True:
 
     else:
         wating_text = font_main.render(f"Очікування гравців...", True, (255, 255, 255))
-        screen.blit(wating_text, (WIDTH // 2 - 25, 20))
+        screen.blit(BG_IMG3, (0, 0))
+        screen.blit(wating_text, (WIDTH // 2 - 25, 20), )
 
     display.update()
     clock.tick(60)
