@@ -51,7 +51,10 @@ BG_IMG2 = transform.scale(image.load('222.png'), (WIDTH, HEIGHT))
 BG_IMG3 = transform.scale(image.load('333.png'), (WIDTH, HEIGHT))
 BG_IMG4 = transform.scale(image.load('444.png'), (WIDTH, HEIGHT))
 # --- ЗВУКИ ---
-
+eee = mixer.Sound("mge-bratok.mp3")
+gay = mixer.Sound("kitaiskii-gimn.mp3")
+fff = mixer.Sound("povezlo-povezlo_YB8fw8r.mp3")
+ccc = mixer.Sound("roblox-sound-death1.mp3")
 # --- ГРА ---
 game_over = False
 winner = None
@@ -67,6 +70,7 @@ while True:
         screen.fill((0, 0, 0))
         countdown_text = font.Font(None, 72).render(str(game_state["countdown"]), True, (255, 255, 255))
         screen.blit(countdown_text, (WIDTH // 2 - 20, HEIGHT // 2 - 30))
+        
         display.update()
         continue  # Не малюємо гру до завершення відліку
 
@@ -82,9 +86,11 @@ while True:
         if you_winner:
             text = "Ти переміг!"
             screen.blit(BG_IMG, (0, 0))
+            fff.play()
         else:
             text = "Пощастить наступним разом!"
             screen.blit(BG_IMG2, (0, 0))
+            ccc.play()
 
         win_text = font_win.render(text, True, (255, 215, 0))
         text_rect = win_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
@@ -98,8 +104,11 @@ while True:
         continue  # Блокує гру після перемоги
 
     if game_state:
+        #eee.stop()
+        gay.play()
         screen.fill((30, 30, 30))
         screen.blit(BG_IMG4, (0, 0))
+        
         draw.rect(screen, (0, 255, 0), (20, game_state['paddles']['0'], 20, 100))
         draw.rect(screen, (255, 0, 255), (WIDTH - 40, game_state['paddles']['1'], 20, 100))
         draw.circle(screen, (255, 255, 255), (game_state['ball']['x'], game_state['ball']['y']), 10)
@@ -118,6 +127,7 @@ while True:
     else:
         wating_text = font_main.render(f"Очікування гравців...", True, (255, 255, 255))
         screen.blit(BG_IMG3, (0, 0))
+        eee.play()
         screen.blit(wating_text, (WIDTH // 2 - 25, 20), )
 
     display.update()
